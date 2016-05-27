@@ -10,7 +10,7 @@ class Board:
     Initializes the game with a certain number of rows
     and columns.
     """
-    def __init(self, rows, columns):
+    def __init__(self, rows, columns):
         self.rows = rows
         self.columns = columns
         self.boardMatrix = numpy.zeros((rows, columns))
@@ -23,16 +23,15 @@ class Board:
     def addPiece(self, column, value):
         "Check if column is full."
         if self.boardMatrix.item(0,column) != 0:
-            return false
+            return False
 
         "Place piece."
         for y in range(self.rows):
             currentValue = self.boardMatrix.item(y, column)
 
             if currentValue == 0:
-                if y == rows - 1:
+                if y == self.rows - 1:
                     self.boardMatrix.itemset((y, column), value)                    
                 else:
                     continue                
-        return true
-        
+        return True
