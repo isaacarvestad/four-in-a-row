@@ -1,5 +1,10 @@
 from board import Board
 
+"""
+Tests that board matrix is correct size and
+that columns and rows are the correct values
+when initially constructed.
+"""
 def test_constructor():
     board = Board(0,0)
     assert board.boardMatrix.size == 0
