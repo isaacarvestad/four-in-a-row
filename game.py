@@ -46,6 +46,8 @@ class Game:
                 if event.key == pygame.K_RIGHT:
                     if self.cursorColumn < 6:
                         self.cursorColumn += 1
+                if event.key == pygame.K_SPACE:
+                    self.board.addPiece(self.cursorColumn, 1)
         return True
 
     def render(self, screen):
