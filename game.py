@@ -44,7 +44,7 @@ class Game:
                     if self.cursorColumn > 0:
                         self.cursorColumn -= 1
                 if event.key == pygame.K_RIGHT:
-                    if self.cursorColumn < 7:
+                    if self.cursorColumn < 6:
                         self.cursorColumn += 1
         return True
 
@@ -61,7 +61,13 @@ class Game:
             for y in range(self.board.rows):
                 xPosition = xStart + x*(self.pieceWidth+self.pieceSpacing)
                 yPosition = yStart + y*(self.pieceHeight+self.pieceSpacing)
-                pygame.draw.rect(screen, (0,0,0), (xPosition, yPosition, self.pieceWidth, self.pieceHeight))
+                pieceColor = (0,0,0)
+                if self.board.boardMatrix.item((y, x)) == 1:
+                    pieceColor = (255,0,0)
+                elif self.board.boardMatrix.item((y, x)) == 2:
+                    pieceColor = (0,255,0)
+                    
+                pygame.draw.rect(screen, pieceColor, (xPosition, yPosition, self.pieceWidth, self.pieceHeight))
 
         xCursor = xStart + self.cursorColumn * (self.pieceWidth + self.pieceSpacing) + (self.pieceWidth - self.cursorWidth)/2
         yCursor = yStart - self.pieceHeight + (self.pieceHeight - self.cursorHeight)/2
