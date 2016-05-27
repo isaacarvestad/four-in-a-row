@@ -34,6 +34,11 @@ def test_addPiece():
     assert board.boardMatrix.item((3,0)) == 2
     assert board.boardMatrix.item((4,0)) == 1
 
+    assert board.addPiece(0, 2) == True
+    assert boart.boardMatrix.item((2,0)) == 2
+    assert board.boardMatrix.item((3,0)) == 2
+    assert board.boardMatrix.item((4,0)) == 1
+
     assert board.addPiece(1, 1) == True
     assert board.boardMatrix.item((4,1)) == 1
 
