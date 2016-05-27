@@ -24,5 +24,24 @@ def test_addPiece():
 
     assert board.addPiece(4, 1) == True
     assert board.boardMatrix.item((4,4)) == 1
-    
 
+"""
+Tests that the board can be filled up completely 
+but no more.
+"""
+def test_addPieceMaxColumn():
+    board = Board(5,5)
+
+    # Fill board
+    for x in range(board.columns):
+        for y in range(board.rows):
+            assert board.addPiece(x, 1) == True
+
+    # Attempt to overfill
+    for x in range(board.columns):
+        assert board.addPiece(x, 2) == False
+
+    # Make sure initially filled values weren't overriden
+    for x in range(board.columns):
+        for y in range(board.rows):
+            assert board.boardMatrix.item((x,y)) == 1
