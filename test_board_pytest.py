@@ -11,6 +11,10 @@ def test_constructor():
     assert board.columns == 5
     assert board.rows == 5
 
+"""
+Tests that one can add pieces to the board and 
+that the stack correctly.
+"""
 def test_addPiece():
     board = Board(5,5)
     assert board.addPiece(0, 1) == True
