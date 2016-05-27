@@ -27,11 +27,10 @@ class Board:
 
         "Place piece."
         for y in range(self.rows):
-            currentValue = self.boardMatrix.item(y, column)
-
-            if currentValue == 0:
-                if y == self.rows - 1:
-                    self.boardMatrix.itemset((y, column), value)                    
-                else:
-                    continue                
+            if y == self.rows - 1: # Reached bottom
+                self.boardMatrix.itemset((y, column), value)
+            elif self.boardMatrix.item(y + 1, column) == 0: # Next row is also empty
+                continue
+            else: # Next row is not empty
+                self.boardMatrix.itemset((y, column), value)
         return True
