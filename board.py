@@ -29,8 +29,10 @@ class Board:
         for y in range(self.rows):
             if y == self.rows - 1: # Reached bottom
                 self.boardMatrix.itemset((y, column), value)
+                break
             elif self.boardMatrix.item(y + 1, column) == 0: # Next row is also empty
                 continue
             else: # Next row is not empty
                 self.boardMatrix.itemset((y, column), value)
+                break
         return True
