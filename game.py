@@ -40,9 +40,17 @@ class Game:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return False
+                if event.key == pygame.K_LEFT:
+                    if self.cursorColumn > 0:
+                        self.cursorColumn -= 1
+                if event.key == pygame.K_RIGHT:
+                    if self.cursorColumn < 7:
+                        self.cursorColumn += 1
         return True
 
     def render(self, screen):
+        self.screen.fill((255,255,255))
+        
         boardWidth = self.board.columns * (self.pieceWidth + self.pieceSpacing)
         boardHeight = self.board.rows * (self.pieceHeight + self.pieceSpacing)
 
