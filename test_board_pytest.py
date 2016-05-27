@@ -3,7 +3,8 @@ from board import Board
 """
 Tests that board matrix is correct size and
 that columns and rows are the correct values
-when initially constructed.
+when initially constructed. Also tests that
+all elements are zero.
 """
 def test_constructor():
     board = Board(0,0)
@@ -15,6 +16,10 @@ def test_constructor():
     assert board.boardMatrix.size == 25
     assert board.columns == 5
     assert board.rows == 5
+
+    for x in range(board.columns):
+        for y in range(board.rows):
+            assert board.boardMatrix.item((x,y)) == 0
 
 """
 Tests that one can add pieces to the board and 
