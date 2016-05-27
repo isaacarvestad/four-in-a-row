@@ -25,6 +25,12 @@ class Game:
         self.board = Board(7, 7)
         self.pieceWidth = 50
         self.pieceHeight = 50
+        self.pieceSpacing = 10
+
+        self.cursorColumn = 3
+        self.cursorWidth = 30
+        self.cursorHeight = 30
+        self.cursorColor = (128, 128, 128)
 
     def update(self):
         "Handle input."
@@ -37,9 +43,21 @@ class Game:
         return True
 
     def render(self, screen):
+        boardWidth = self.board.columns * (self.pieceWidth + self.pieceSpacing)
+        boardHeight = self.board.rows * (self.pieceHeight + self.pieceSpacing)
+
+        xStart = self.screenWidth/2 - boardWidth/2
+        yStart = self.screenHeight/2 - boardHeight/2
+        
         for x in range(self.board.columns):
             for y in range(self.board.rows):
-                pygame.draw.rect(screen, (0,0,0), (x*self.pieceWidth, y*self.pieceHeight, self.pieceWidth, self.pieceHeight))
+                xPosition = xStart + x*(self.pieceWidth+self.pieceSpacing)
+                yPosition = yStart + y*(self.pieceHeight+self.pieceSpacing)
+                pygame.draw.rect(screen, (0,0,0), (xPosition, yPosition, self.pieceWidth, self.pieceHeight))
+
+        xCursor = xStart + self.cursorColumn * (self.pieceWidth + self.pieceSpacing) + (self.pieceWidth - self.cursorWidth)/2
+        yCursor = yStart - self.pieceHeight + (self.pieceHeight - self.cursorHeight)/2
+        pygame.draw.rect(screen, self.cursorColor, (xCursor, yCursor, self.cursorWidth, self.cursorHeight))
 
     "Starts the game."
     def start(self):
