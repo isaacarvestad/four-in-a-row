@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, random
 
 from board import Board
 
@@ -31,7 +31,7 @@ class Game:
         self.cursorWidth = 30
         self.cursorHeight = 30
         self.cursorColor = (128, 128, 128)
-
+        
     def update(self):
         "Handle input."
         for event in pygame.event.get():
@@ -48,6 +48,8 @@ class Game:
                         self.cursorColumn += 1
                 if event.key == pygame.K_SPACE:
                     self.board.addPiece(self.cursorColumn, 1)
+                    self.board.addPiece(random.randint(0,6), 2)
+                    
         return True
 
     def render(self, screen):
