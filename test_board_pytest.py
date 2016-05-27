@@ -13,5 +13,16 @@ def test_constructor():
 
 def test_addPiece():
     board = Board(5,5)
-    board.addPiece(0, 1)
+    assert board.addPiece(0, 1) == True
     assert board.boardMatrix.item((4,0)) == 1
+
+    assert board.addPiece(0, 1) == True
+    assert board.boardMatrix.item((3,0)) == 1
+
+    assert board.addPiece(1, 1) == True
+    assert board.boardMatrix.item((4,1)) == 1
+
+    assert board.addPiece(4, 1) == True
+    assert board.boardMatrix.item((4,4)) == 1
+    
+
