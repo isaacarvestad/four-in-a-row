@@ -100,3 +100,22 @@ def test_ai_out_of_moves():
     # Perform test.
     for i in range(20):
         assert board.get_ai_move() == -1
+        
+"""
+Tests horizontal board evaluation.
+"""
+def test_evaluate_board_horizontal():
+    board = Board(7,7)
+
+    for x in range(0,4):
+        board.add_piece(x,1)
+
+    assert board.evaluate_board() == 1
+
+    board = Board(7,7)
+
+    for x in range(0,3):
+        board.add_piece(x,1)
+        board.add_piece(x+1,2)
+
+    assert board.evaluate_board() == 0
