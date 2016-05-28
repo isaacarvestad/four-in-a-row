@@ -5,4 +5,4 @@ Author: Isaac Arvestad
 """
 class GameState(Enum):
     playing = 1
-    over = 2
+    ended = 2
