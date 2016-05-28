@@ -48,14 +48,7 @@ class Game:
                         self.cursor_column += 1
                 if event.key == pygame.K_SPACE:
                     if self.board.add_piece(self.cursor_column, 1) == True:
-                        evaluation = self.board.evaluate_board()
-                        if evaluation == 1:
-                            print("Player 1 won!")
-                        elif evaluation == 2:
-                            print("Player 2 won!")
-                        elif evaluation == 3:
-                            print("Draw!")
-                        elif evaluation == 0:
+                        if self.evaluate_board() == True:
                             ai_move = self.board.get_ai_move()
                             self.board.add_piece(ai_move, 2)
                     
@@ -86,6 +79,23 @@ class Game:
         y_cursor = y_start - self.piece_height + (self.piece_height - self.cursor_height)/2
         pygame.draw.rect(screen, self.cursor_color, (x_cursor, y_cursor, self.cursor_width, self.cursor_height))
 
+    """
+    Evaluates the board. If a player has won or there is a draw,
+    print out the result and return false. If play should instead 
+    continue, return true.
+    """
+    def evaluate_board(self):
+        evaluation = self.board.evaluate_board()
+        if evaluation == 1:
+            print("Player 1 won!")
+        elif evaluation == 2:
+            print("Player 2 won!")
+        elif evaluation == 3:
+            print("Draw!")
+        elif evaluation == 0:
+            return True
+        return False
+    
     "Starts the game."
     def start(self):
         while True:
