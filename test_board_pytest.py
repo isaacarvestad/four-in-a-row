@@ -126,3 +126,23 @@ def test_evaluate_board_horizontal():
         board.add_piece(x+1,2)
 
     assert board.evaluate_board() == 0
+
+"""
+Tests vertical board evaluation.
+"""
+def test_evaluate_board_vertical():
+    for x in range(0,7):
+        board = Board(7,7)
+
+        for y in range(0,4):
+            board.add_piece(x,1)
+
+        assert board.evaluate_board() == 1
+
+        board = Board(7,7)
+
+        for y in range(0,3):
+            board.add_piece(x,1)
+            board.add_piece(x,2)
+
+        assert board.evaluate_board() == 0
