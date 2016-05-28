@@ -17,6 +17,9 @@ class Game:
         self.background = pygame.Surface(self.screen.get_size())
         self.background.fill((255,255,255))
         self.background = self.background.convert()
+
+        self.font = pygame.font.Font(None, 30)
+        self.game_over_string = ""
         
         self.screen.blit(self.background, (0,0))
         
@@ -56,6 +59,7 @@ class Game:
                             if self.evaluate_board() == True:
                                 ai_move = self.board.get_ai_move()
                                 self.board.add_piece(ai_move, 2)
+                                self.evaluate_board()
                     
         return True
 
@@ -84,6 +88,11 @@ class Game:
         y_cursor = y_start - self.piece_height + (self.piece_height - self.cursor_height)/2
         pygame.draw.rect(screen, self.cursor_color, (x_cursor, y_cursor, self.cursor_width, self.cursor_height))
 
+        if self.game_state == GameState.ended:
+            game_over_text = self.font.render(self.game_over_string, 1, (0,0,0))
+            text_size = self.font.size(self.game_over_string)
+            self.screen.blit(game_over_text, (self.screen_width/2 - text_size[0]/2, 20))
+
     """
     Evaluates the board. If a player has won or there is a draw,
     print out the result and return false. If play should instead 
@@ -92,11 +101,11 @@ class Game:
     def evaluate_board(self):
         evaluation = self.board.evaluate_board()
         if evaluation == 1:
-            print("Player 1 won!")
+            self.game_over_string = "Red won!"
         elif evaluation == 2:
-            print("Player 2 won!")
+            self.game_over_string = "Green won!"
         elif evaluation == 3:
-            print("Draw!")
+            self.game_over_string = "Draw!"
         elif evaluation == 0:
             return True
         
