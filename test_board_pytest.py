@@ -77,7 +77,7 @@ def test_get_ai_move():
     for x in range(board.columns):
         for y in range(board.rows):
             ai_move = board.get_ai_move()
-            assert board.add_piece(get_ai_move, 1) == True
+            assert board.add_piece(ai_move, 1) == True
 
     # Test that board is filled.
     for x in range(board.columns):
@@ -100,4 +100,3 @@ def test_ai_out_of_moves():
     # Perform test.
     for i in range(20):
         assert board.get_ai_move() == -1
-        
