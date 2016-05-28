@@ -51,4 +51,47 @@ class Board:
 
         index = random.randint(0, len(available_moves)-1)
         return available_moves[index]
+
+    """
+    Evaluates the board position and checks if a player has won, a draw
+    has occured or if the game if unfinished. Does not check if both 
+    players have four in a row as it is assumed that the board is 
+    evaluated every move.
+
+    Returns an interger where:
+    0 = unfinished
+    1 = player 1 won
+    2 = player 2 won
+    3 = draw
+    """
+    def evaluate_board(self):
+        # Check vertial wins
+        for x in range(self.columns):
+           for y in range(self.rows-3):
+               initial_piece = self.matrix.item((y,x))
+               if initial_piece == 0:
+                   continue
+               for dy in range(0,4):
+                   next_piece = self.matrix.item((y+dy,x))
+                   if next_piece != initial_piece:
+                       break
+                   if dy == 3:
+                       return initial_piece
+        # Check horizontal wins
+        for y in range(self.rows):
+            for x in range(self.columns - 3):
+                initial_piece = self.matrix.item((y,x))
+                if initial_piece == 0:
+                    continue
+                for dx in range(0,4):
+                    next_piece = self.matrix.item((y,x+dx))
+                    if next_piece != initial_piece:
+                        break
+                    if dx == 3:
+                        return initial_piece
         
+        # Check for draw
+        for x in range(self.columns):
+            if self.matrix.item((0,x)) == 0:
+                return 0
+        return 3
