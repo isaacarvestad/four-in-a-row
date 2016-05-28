@@ -1,4 +1,4 @@
-import numpy
+import numpy, random
 
 """
 Board represents a four in a row game board.
@@ -36,3 +36,19 @@ class Board:
                 self.matrix.itemset((y, column), value)
                 break
         return True
+
+    """
+    Returns the column which the ai want to place their piece in.
+    Column is 0 indexed. Returns -1 if no moves are available.
+    """
+    def get_ai_move(self):
+        available_moves = []
+        for i in range(self.columns):
+            if self.matrix.item(0,i) == 0:
+                available_moves.append(i)
+        if len(available_moves) == 0:
+            return -1
+
+        index = random.randint(0, len(available_moves)-1)
+        return available_moves[index]
+        

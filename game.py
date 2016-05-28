@@ -1,4 +1,4 @@
-import pygame, sys, random
+import pygame, sys
 
 from board import Board
 
@@ -47,8 +47,10 @@ class Game:
                     if self.cursor_column < 6:
                         self.cursor_column += 1
                 if event.key == pygame.K_SPACE:
-                    self.board.add_piece(self.cursor_column, 1)
-                    self.board.add_piece(random.randint(0,6), 2)
+                    if self.board.add_piece(self.cursor_column, 1) == True:
+                        ai_move = self.board.get_ai_move()
+                        if ai_move != -1:
+                            self.board.add_piece(ai_move, 2)
                     
         return True
 
