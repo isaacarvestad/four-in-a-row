@@ -1,6 +1,7 @@
 import pygame, sys
 
 from board import Board
+from game_state import GameState
 
 """
 A simple four in a row game.
@@ -23,6 +24,9 @@ class Game:
         self.screen_height = self.screen.get_size()[1]
         
         self.board = Board(7, 7)
+
+        self.game_state = GameState.playing
+        
         self.piece_width = 50
         self.piece_height = 50
         self.piece_spacing = 10
@@ -40,17 +44,18 @@ class Game:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return False
-                if event.key == pygame.K_LEFT:
-                    if self.cursor_column > 0:
-                        self.cursor_column -= 1
-                if event.key == pygame.K_RIGHT:
-                    if self.cursor_column < 6:
-                        self.cursor_column += 1
-                if event.key == pygame.K_SPACE:
-                    if self.board.add_piece(self.cursor_column, 1) == True:
-                        if self.evaluate_board() == True:
-                            ai_move = self.board.get_ai_move()
-                            self.board.add_piece(ai_move, 2)
+                if self.game_state == GameState.playing:
+                    if event.key == pygame.K_LEFT:
+                        if self.cursor_column > 0:
+                            self.cursor_column -= 1
+                    if event.key == pygame.K_RIGHT:
+                        if self.cursor_column < 6:
+                            self.cursor_column += 1
+                    if event.key == pygame.K_SPACE:
+                        if self.board.add_piece(self.cursor_column, 1) == True:
+                            if self.evaluate_board() == True:
+                                ai_move = self.board.get_ai_move()
+                                self.board.add_piece(ai_move, 2)
                     
         return True
 
@@ -94,6 +99,8 @@ class Game:
             print("Draw!")
         elif evaluation == 0:
             return True
+        
+        self.game_state = GameState.ended
         return False
     
     "Starts the game."
