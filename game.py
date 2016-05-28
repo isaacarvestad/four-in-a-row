@@ -48,8 +48,15 @@ class Game:
                         self.cursor_column += 1
                 if event.key == pygame.K_SPACE:
                     if self.board.add_piece(self.cursor_column, 1) == True:
-                        ai_move = self.board.get_ai_move()
-                        if ai_move != -1:
+                        evaluation = self.board.evaluate_board()
+                        if evaluation == 1:
+                            print("Player 1 won!")
+                        elif evaluation == 2:
+                            print("Player 2 won!")
+                        elif evaluation == 3:
+                            print("Draw!")
+                        elif evaluation == 0:
+                            ai_move = self.board.get_ai_move()
                             self.board.add_piece(ai_move, 2)
                     
         return True
