@@ -19,18 +19,18 @@ class Game:
         
         self.screen.blit(self.background, (0,0))
         
-        self.screenWidth = self.screen.get_size()[0]
-        self.screenHeight = self.screen.get_size()[1]
+        self.screen_width = self.screen.get_size()[0]
+        self.screen_height = self.screen.get_size()[1]
         
         self.board = Board(7, 7)
-        self.pieceWidth = 50
-        self.pieceHeight = 50
-        self.pieceSpacing = 10
+        self.piece_width = 50
+        self.piece_height = 50
+        self.piece_spacing = 10
 
-        self.cursorColumn = 3
-        self.cursorWidth = 30
-        self.cursorHeight = 30
-        self.cursorColor = (128, 128, 128)
+        self.cursor_column = 3
+        self.cursor_width = 30
+        self.cursor_height = 30
+        self.cursor_color = (128, 128, 128)
         
     def update(self):
         "Handle input."
@@ -41,41 +41,41 @@ class Game:
                 if event.key == pygame.K_ESCAPE:
                     return False
                 if event.key == pygame.K_LEFT:
-                    if self.cursorColumn > 0:
-                        self.cursorColumn -= 1
+                    if self.cursor_column > 0:
+                        self.cursor_column -= 1
                 if event.key == pygame.K_RIGHT:
-                    if self.cursorColumn < 6:
-                        self.cursorColumn += 1
+                    if self.cursor_column < 6:
+                        self.cursor_column += 1
                 if event.key == pygame.K_SPACE:
-                    self.board.addPiece(self.cursorColumn, 1)
-                    self.board.addPiece(random.randint(0,6), 2)
+                    self.board.add_piece(self.cursor_column, 1)
+                    self.board.add_piece(random.randint(0,6), 2)
                     
         return True
 
     def render(self, screen):
         self.screen.fill((255,255,255))
         
-        boardWidth = self.board.columns * (self.pieceWidth + self.pieceSpacing)
-        boardHeight = self.board.rows * (self.pieceHeight + self.pieceSpacing)
+        board_width = self.board.columns * (self.piece_width + self.piece_spacing)
+        board_height = self.board.rows * (self.piece_height + self.piece_spacing)
 
-        xStart = self.screenWidth/2 - boardWidth/2
-        yStart = self.screenHeight/2 - boardHeight/2
+        x_start = self.screen_width/2 - board_width/2
+        y_start = self.screen_height/2 - board_height/2
         
         for x in range(self.board.columns):
             for y in range(self.board.rows):
-                xPosition = xStart + x*(self.pieceWidth+self.pieceSpacing)
-                yPosition = yStart + y*(self.pieceHeight+self.pieceSpacing)
-                pieceColor = (0,0,0)
-                if self.board.boardMatrix.item((y, x)) == 1:
-                    pieceColor = (255,0,0)
-                elif self.board.boardMatrix.item((y, x)) == 2:
-                    pieceColor = (0,255,0)
+                x_position = x_start + x*(self.piece_width+self.piece_spacing)
+                y_position = y_start + y*(self.piece_height+self.piece_spacing)
+                piece_color = (0,0,0)
+                if self.board.matrix.item((y, x)) == 1:
+                    piece_color = (255,0,0)
+                elif self.board.matrix.item((y, x)) == 2:
+                    piece_color = (0,255,0)
                     
-                pygame.draw.rect(screen, pieceColor, (xPosition, yPosition, self.pieceWidth, self.pieceHeight))
+                pygame.draw.rect(screen, piece_color, (x_position, y_position, self.piece_width, self.piece_height))
 
-        xCursor = xStart + self.cursorColumn * (self.pieceWidth + self.pieceSpacing) + (self.pieceWidth - self.cursorWidth)/2
-        yCursor = yStart - self.pieceHeight + (self.pieceHeight - self.cursorHeight)/2
-        pygame.draw.rect(screen, self.cursorColor, (xCursor, yCursor, self.cursorWidth, self.cursorHeight))
+        x_cursor = x_start + self.cursor_column * (self.piece_width + self.piece_spacing) + (self.piece_width - self.cursor_width)/2
+        y_cursor = y_start - self.piece_height + (self.piece_height - self.cursor_height)/2
+        pygame.draw.rect(screen, self.cursor_color, (x_cursor, y_cursor, self.cursor_width, self.cursor_height))
 
     "Starts the game."
     def start(self):
