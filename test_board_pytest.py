@@ -65,3 +65,39 @@ def test_add_piece_max_column():
     for x in range(board.columns):
         for y in range(board.rows):
             assert board.matrix.item((x,y)) == 1
+
+"""
+Tests that get_ai_move fills the board completely with 
+random moves.
+"""
+def test_get_ai_move():
+    board = Board(7,7)
+
+    # Fill board with ai moves.
+    for x in range(board.columns):
+        for y in range(board.rows):
+            ai_move = board.get_ai_move()
+            assert board.add_piece(get_ai_move, 1) == True
+
+    # Test that board is filled.
+    for x in range(board.columns):
+        for y in range(board.rows):
+            assert board.matrix.item((y, x)) == 1
+
+"""
+Tests that get_ai_move returns -1 when there are no
+more moves available.
+"""
+def test_ai_out_of_moves():
+    board = Board(7,7)
+    
+    # Fill board with ai moves.
+    for x in range(board.columns):
+        for y in range(board.rows):
+            ai_move = board.get_ai_move()
+            assert board.add_piece(ai_move, 1) == True
+
+    # Perform test.
+    for i in range(20):
+        assert board.get_ai_move() == -1
+        
