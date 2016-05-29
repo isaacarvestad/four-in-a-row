@@ -146,3 +146,28 @@ def test_evaluate_board_vertical():
             board.add_piece(x,2)
 
         assert board.evaluate_board() == 0
+
+"""
+Tests diagonal board evaluation.
+"""
+def test_evaluate_board_diagonal():
+    board = Board(7,7)
+
+    # Create a base with 2 values, a triangle 3 high and 3 wide.
+    # Then add 1 values on top of triangle to create a 4 long diagonal.
+    for _ in range(0,3):
+        board.add_piece(2,2)
+    board.add_piece(2,1)
+
+    for _ in range(0,2):
+        board.add_piece(3,2)
+    board.add_piece(3,1)
+
+    board.add_piece(4,2)
+    board.add_piece(4,1)
+
+    assert board.evaluate_board() == 0
+    
+    board.add_piece(5,1)
+
+    assert board.evaluate_board() == 1
