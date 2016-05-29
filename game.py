@@ -104,7 +104,7 @@ class Game:
             self.game_over_string = "Red won!"
         elif evaluation == 2:
             self.game_over_string = "Green won!"
-        elif evaluation == 3:
+        elif evaluation == -1:
             self.game_over_string = "Draw!"
         elif evaluation == 0:
             return True

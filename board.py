@@ -62,7 +62,7 @@ class Board:
     0 = unfinished
     1 = player 1 won
     2 = player 2 won
-    3 = draw
+    -1 = draw
     """
     def evaluate_board(self):
         # Check for win
@@ -87,7 +87,7 @@ class Board:
         for x in range(self.columns):
             if self.matrix.item((0,x)) == 0:
                 return 0
-        return 3
+        return -1
 
     """
     Helper method which returns the step in x and y directions for the evaluate_board
