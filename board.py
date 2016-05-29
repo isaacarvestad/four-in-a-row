@@ -65,33 +65,49 @@ class Board:
     3 = draw
     """
     def evaluate_board(self):
-        # Check vertial wins
+        # Check for win
         for x in range(self.columns):
-           for y in range(self.rows-3):
-               initial_piece = self.matrix.item((y,x))
-               if initial_piece == 0:
-                   continue
-               for dy in range(0,4):
-                   next_piece = self.matrix.item((y+dy,x))
-                   if next_piece != initial_piece:
-                       break
-                   if dy == 3:
-                       return initial_piece
-        # Check horizontal wins
-        for y in range(self.rows):
-            for x in range(self.columns - 3):
+            for y in range(self.rows):
                 initial_piece = self.matrix.item((y,x))
                 if initial_piece == 0:
                     continue
-                for dx in range(0,4):
-                    next_piece = self.matrix.item((y,x+dx))
-                    if next_piece != initial_piece:
-                        break
-                    if dx == 3:
-                        return initial_piece
+                for i in range(0,8):
+                    (dx, dy) = self.get_dx_dy(i)
+                    for j in range(1,4):
+                        next_x = x + dx*j
+                        next_y = y + dy*j
+                        if self.coordinates_within_bounds(next_x, next_y) == True:
+                            next_piece = self.matrix.item((next_y, next_x))
+                            if next_piece != initial_piece:
+                                break
+                            if j == 3:
+                                return initial_piece
         
         # Check for draw
         for x in range(self.columns):
             if self.matrix.item((0,x)) == 0:
                 return 0
         return 3
+
+    """
+    Helper method which returns the step in x and y directions for the evaluate_board
+    algorithm. If index is outside of the 8 possible directions [0,7] nothing is 
+    returned.
+    """
+    def get_dx_dy(self, index):
+        if index == 0: return (1, 0)
+        elif index == 1: return (1, 1)
+        elif index == 2: return (0, 1)
+        elif index == 3: return (-1, 1)
+        elif index == 4: return (-1, 0)
+        elif index == 5: return (-1, -1)
+        elif index == 6: return (0, -1)
+        elif index == 7: return (1, -1)
+
+    """
+    Returns true if coordinates are within bounds, false if they are not.
+    """
+    def coordinates_within_bounds(self, column, row):
+        if column < 0 or column > self.columns - 1 or row < 0 or row > self.rows - 1:
+            return False
+        return True
